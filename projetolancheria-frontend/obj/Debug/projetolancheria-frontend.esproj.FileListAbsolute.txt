@@ -1,0 +1,2 @@
+C:\Users\henri\Desktop\projetoLancheria\ProjetoLancheria\projetolancheria-frontend\obj\Debug\projetolancheria-frontend.esproj.SuggestedBindingRedirects.cache
+C:\Users\henri\Desktop\projetoLancheria\ProjetoLancheria\projetolancheria-frontend\obj\Debug\projetolancheria-frontend.esproj.CoreCompileInputs.cache
