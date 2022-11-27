@@ -1,15 +1,22 @@
+import React, { useEffect, useState } from 'react';
+
 import './App.css';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import Home from './components/Home';
 
 export default function App() {
+  const [responsiveWidth, setResponsiveWidth] = useState(
+    window.matchMedia("(min-width: 900px)").matches
+  )
 
-  useEffect(()=>{
-  },[])
+  useEffect(() => {
+    window
+    .matchMedia("(min-width: 768px)")
+    .addEventListener('change', e => setResponsiveWidth( e.matches ));
+  }, []);
 
   return (
     <div className="App">
-      <h1>LACHERIA</h1>
+      <Home responsiveWidth={responsiveWidth}/>
     </div>
   );
 }
