@@ -9,12 +9,14 @@ import InstagramSVG from '../../assets/instagramSVG.svg'
 const Footer = () => {
 return (  
    <div className='footer-container'>
-      <span>Quem somos?</span>
-      <span>Contato</span>
-      <span>Endereço</span>
+      <div className="footer-links">
+         <span>Quem somos?</span>
+         <span>Contato</span>
+         <span>Endereço</span>
+      </div>
       
       <div className="logos">
-         <img src={TwitterSVG} width={80}/>
+         <img src={TwitterSVG}/>
          <img src={WhatsAppSVG}/>
          <img src={InstagramSVG}/>
       </div>

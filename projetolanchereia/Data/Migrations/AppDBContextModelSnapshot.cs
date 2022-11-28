@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using projetoLancheriaBackend.Data;
 
@@ -11,11 +10,9 @@ using projetoLancheriaBackend.Data;
 namespace projetoLancheriaBackend.Data.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20221125051238_Firstmigration")]
-    partial class Firstmigration
+    partial class AppDBContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
@@ -36,6 +33,30 @@ namespace projetoLancheriaBackend.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ingredients");
+                });
+
+            modelBuilder.Entity("projetoLancheriaBackend.Models.Material", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("IngredientId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IngredientId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Materials");
                 });
 
             modelBuilder.Entity("projetoLancheriaBackend.Models.Product", b =>
@@ -69,45 +90,34 @@ namespace projetoLancheriaBackend.Data.Migrations
                     b.ToTable("Purchases");
                 });
 
+            modelBuilder.Entity("projetoLancheriaBackend.Models.Material", b =>
+                {
+                    b.HasOne("projetoLancheriaBackend.Models.Ingredient", "Ingredient")
+                        .WithMany()
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("projetoLancheriaBackend.Models.Product", "Product")
+                        .WithMany("Materials")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredient");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("projetoLancheriaBackend.Models.Product", b =>
                 {
                     b.HasOne("projetoLancheriaBackend.Models.Purchase", null)
                         .WithMany("Products")
                         .HasForeignKey("PurchaseId");
+                });
 
-                    b.OwnsMany("projetoLancheriaBackend.Models.Material", "Materials", b1 =>
-                        {
-                            b1.Property<int>("ProductId")
-                                .HasColumnType("INTEGER");
-
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("INTEGER");
-
-                            b1.Property<int>("IngredientId")
-                                .HasColumnType("INTEGER");
-
-                            b1.Property<int>("Quantity")
-                                .HasColumnType("INTEGER");
-
-                            b1.HasKey("ProductId", "Id");
-
-                            b1.HasIndex("IngredientId");
-
-                            b1.ToTable("Material");
-
-                            b1.HasOne("projetoLancheriaBackend.Models.Ingredient", "Ingredient")
-                                .WithMany()
-                                .HasForeignKey("IngredientId")
-                                .OnDelete(DeleteBehavior.Cascade)
-                                .IsRequired();
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProductId");
-
-                            b1.Navigation("Ingredient");
-                        });
-
+            modelBuilder.Entity("projetoLancheriaBackend.Models.Product", b =>
+                {
                     b.Navigation("Materials");
                 });
 

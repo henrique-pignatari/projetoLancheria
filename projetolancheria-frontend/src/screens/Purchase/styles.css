@@ -1,0 +1,28 @@
+.purchase-container{
+   min-height: 100%;
+   align-items: center;
+   display: flex;
+   flex-direction: column;
+   background-color: var(--dark-brown);
+}
+
+.content{
+   width: 100%;
+   min-height: 1000px;
+   justify-content: center;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.button-add-product{
+   align-self: center;
+   font-size: 25px;
+   font-weight: bold;
+   border: 2px solid black;
+   border-radius: 20px;
+   padding: 15px;
+   margin-top: 25px;
+   transition: all 250ms ease-in-out;
+   background-color: beige;
+}

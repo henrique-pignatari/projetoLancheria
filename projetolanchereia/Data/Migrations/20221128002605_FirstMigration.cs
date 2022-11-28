@@ -5,7 +5,7 @@
 namespace projetoLancheriaBackend.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Firstmigration : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,25 +56,26 @@ namespace projetoLancheriaBackend.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Material",
+                name: "Materials",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Id = table.Column<int>(type: "INTEGER", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     IngredientId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Quantity = table.Column<int>(type: "INTEGER", nullable: false)
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Material", x => new { x.ProductId, x.Id });
+                    table.PrimaryKey("PK_Materials", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Material_Ingredients_IngredientId",
+                        name: "FK_Materials_Ingredients_IngredientId",
                         column: x => x.IngredientId,
                         principalTable: "Ingredients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Material_Products_ProductId",
+                        name: "FK_Materials_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -82,9 +83,14 @@ namespace projetoLancheriaBackend.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Material_IngredientId",
-                table: "Material",
+                name: "IX_Materials_IngredientId",
+                table: "Materials",
                 column: "IngredientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Materials_ProductId",
+                table: "Materials",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_PurchaseId",
@@ -96,7 +102,7 @@ namespace projetoLancheriaBackend.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Material");
+                name: "Materials");
 
             migrationBuilder.DropTable(
                 name: "Ingredients");

@@ -1,0 +1,10 @@
+.list-container{
+   display: flex;
+   flex-direction: column;
+}
+
+.button-add-product:hover{
+   cursor: pointer;
+   color: rgb(245, 245, 245);
+   background-color: rgba(0, 0, 0, 0.4);
+}

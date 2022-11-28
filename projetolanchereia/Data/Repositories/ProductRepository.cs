@@ -9,7 +9,10 @@ namespace projetoLancheriaBackend.Data.Repositories
         {
             using (var db = new AppDBContext())
             {
-                return await db.Products.ToListAsync();
+                return await db.Products
+                    .Include(p => p.Materials)
+                    .ThenInclude(M => M.Ingredient)
+                    .ToListAsync();
             }
         }
 
@@ -34,8 +37,9 @@ namespace projetoLancheriaBackend.Data.Repositories
 
                     return await db.SaveChangesAsync() >= 1;
                 }
-                catch (Exception e)
+                catch(Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
 
                     return false;
                 }

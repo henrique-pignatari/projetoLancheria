@@ -1,16 +1,31 @@
-import React from 'react';
-import Header from '../Header';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import HamburguerExplode from '../../assets/hamburguer-explode.png'
 import HamburgureNormal from '../../assets/hamburguer.png'
+import { AppContext } from '../../contexts/app';
 
 import './styles.css'
-import Footer from '../Footer';
 
-const Home = ({responsiveWidth}) => {
+const Home = () => {
+   const {setResponsive} = useContext(AppContext);
+
+  useEffect(() => {
+    window
+    .matchMedia("(min-width: 768px)")
+    .addEventListener('change', e => setResponsive( e.matches ));
+  }, []);
+  
+   const {responsiveWidth} = useContext(AppContext)
+   
+   const navigate = useNavigate()
+   
+   const handlePurchaseClick = () =>{
+      navigate('/Purchase');
+   }
+
    return (
       <>
-         <Header responsiveWidth={responsiveWidth}/>
          <div className='home-container'>
             <div className="content">
                <div className='hamburguer-container'>
@@ -38,10 +53,17 @@ const Home = ({responsiveWidth}) => {
                      </div>
                   </div>
                </div>
-               <button className='order-button'>FAÇA SEU PEDIDO AGORA MESMO</button>
             </div>
+            <button 
+            style={
+               !responsiveWidth? 
+               {fontSize: 15, marginBottom: 90} :
+               {fontSize: 25}
+            } 
+            className='order-button'
+            onClick={handlePurchaseClick}
+            >FAÇA SEU PEDIDO AGORA MESMO</button>
          </div>
-         <Footer/>
       </>
    );
 }

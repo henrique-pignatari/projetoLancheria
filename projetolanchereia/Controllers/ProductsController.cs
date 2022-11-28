@@ -12,6 +12,23 @@ namespace projetoLancheriaBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IAsyncEnumerable<Product>>> GetProducts()
         {
+            //var ovo = new Ingredient("Ovo", 0.50);
+            //var hamburguer = new Ingredient("harmburguer", 3.50);
+
+            //var material1 = new Material(ovo, 1);
+            //var material2 = new Material(hamburguer, 3);
+
+            //var materials = new List<Material>();
+
+            //materials.Add(material1);
+            //materials.Add(material2);
+
+            //var product = new Product("X-TESTE", materials);
+
+            //if (!await ProductRepository.CreateProductAsync(product))
+            //{
+            //    return StatusCode(StatusCodes.Status500InternalServerError, "PENIS");
+            //}
 
             try
             {
@@ -19,9 +36,9 @@ namespace projetoLancheriaBackend.Controllers
                 return Ok(products);
 
             }
-            catch
+            catch(Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "ERRO AO PEGAR PRODUTOS");
             }
         }

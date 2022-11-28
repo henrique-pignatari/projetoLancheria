@@ -3,7 +3,7 @@
    clear: both;
    bottom: 0;
    width: 100%;
-   height: 150px;
+   min-height: 150px;
    padding: 60px;
    background-color: var(--light-brown);
    justify-content: space-evenly;
@@ -22,9 +22,17 @@
    cursor: pointer;
 }
 
+.footer-links{
+   display: flex;
+   flex: 4;
+   justify-content: space-evenly;
+}
+
 .logos{
    display: flex;
+   flex: 2;
    align-items: center;
+   justify-content: space-around;
 }
 
 .logos img{

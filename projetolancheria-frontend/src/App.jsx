@@ -1,22 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import {BrowserRouter as Router,  Route, Routes} from 'react-router-dom'
+import { AppProvider } from './contexts/app';
 
 import './App.css';
-import Home from './components/Home';
 
-export default function App() {
-  const [responsiveWidth, setResponsiveWidth] = useState(
-    window.matchMedia("(min-width: 900px)").matches
-  )
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Home from './screens/Home';
+import Purchase from './screens/Purchase';
+import AdminScreen from './screens/AdminScreen';
 
-  useEffect(() => {
-    window
-    .matchMedia("(min-width: 768px)")
-    .addEventListener('change', e => setResponsiveWidth( e.matches ));
-  }, []);
-
+export default function App() {  
   return (
-    <div className="App">
-      <Home responsiveWidth={responsiveWidth}/>
-    </div>
+    <AppProvider>
+      <div className="App">
+        <Router>
+          <Header/>
+          <Routes>
+            <Route
+              path='/'
+              exact
+              element={<Home/>}
+            />
+            <Route
+              path='/purchase'
+              exact
+              element={<Purchase/>}
+            />
+            <Route
+              path='/admin'
+              exact
+              element={<AdminScreen/>}
+            />
+          </Routes>
+          <Footer/>
+        </Router>
+      </div>
+    </AppProvider>
   );
 }

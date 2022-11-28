@@ -1,0 +1,52 @@
+.item-container,
+.item-description-container,
+.item-options
+{
+   display: flex;
+   align-items: center;
+   color: whitesmoke;
+}
+
+.item-container{
+   padding: 10PX;
+}
+
+.item-description-container{
+   flex: 5;
+   align-items: baseline;
+}
+
+.item-description-container h1{
+   flex: 4;
+}
+
+.item-description-container span{
+   flex: 1;
+   font-size: 15px;
+}
+
+.item-options{
+   flex: 1;
+   justify-content: space-between;
+}
+
+.item-options button{
+   color: whitesmoke;
+   width: 30px;
+   height: 30px;
+   background-color: transparent;
+   border: 1px solid whitesmoke;
+   border-radius: 300px;
+   transition: all 100ms ease-in;
+}
+.item-options button:hover{
+   background-color: #000;
+   border: 1px solid var(--dark-brown);
+   cursor: pointer;
+}
+
+.separator{
+   width: 95%;
+   border: 1px solid whitesmoke;
+   margin-bottom: 15px;
+}

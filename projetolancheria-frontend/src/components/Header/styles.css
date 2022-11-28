@@ -7,6 +7,12 @@
    background-color: var(--light-brown);
 }
 
+.home-button{
+   background-color: transparent;
+   border: none;
+   padding: 10px;
+}
+
 .logo-word{
    color: var(--main-yellow);
    font-family: 'Abhaya Libre', serif;
@@ -33,6 +39,7 @@
    border: none;
 }
 
-.user-icon:hover{
+.user-icon:hover,
+.home-button:hover{
    cursor: pointer;
 }
