@@ -25,15 +25,18 @@ const Modal = (
             {children}
             
             <div className="action-buttons">
-               <button 
-                  onClick={()=>{
-                     setModalShow(false);
-                     handleModalConfirm();
-                  }}
-                  className='modal-button-confirm'
-               >
-                  {confirmButtonText}
-               </button>
+               {
+                  confirmButtonText &&
+                  <button 
+                     onClick={()=>{
+                        setModalShow(false);
+                        handleModalConfirm();
+                     }}
+                     className='modal-button-confirm'
+                  >
+                     {confirmButtonText}
+                  </button>
+               }
 
                <button 
                   onClick={()=>{setModalShow(false)}}

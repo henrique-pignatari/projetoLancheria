@@ -41,8 +41,12 @@ export const AppProvider = ({children}) =>{
       return ingredients;
    }
 
-   const fetchIngredients = () =>{
-
+   const fetchIngredients = async () =>{
+      const {data} = await axios.get(
+         urlConstants.INGREDIENTS_URL
+      )
+      console.log(data)
+      return data;
    }
 
    const setResponsive = matches =>{
