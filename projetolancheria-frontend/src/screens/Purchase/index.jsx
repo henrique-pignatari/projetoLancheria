@@ -15,6 +15,7 @@ const Purchase = () => {
       setPurchaseProducts, 
       getProducts,
       getIngredients,
+      changeProduct,
    } = useContext(AppContext);
 
    const [DbProducts, setDbProducts] = useState([]);
@@ -32,11 +33,11 @@ const Purchase = () => {
    },[])
 
    const handleProductAddButton = () =>{
-
       if(DbProducts.length < 1){
          fetchProducts()
          .then((response)=>{
             setDbProducts(response);
+            console.log(response)
             setModalShow(true);
          });
          return;
@@ -44,8 +45,8 @@ const Purchase = () => {
       setModalShow(true);
    }
 
-   const fetchProducts = async () => {
-      const products = await getProducts();
+   const fetchProducts = () => {
+      const products = getProducts();
       return products;
    }
 
@@ -84,6 +85,11 @@ const Purchase = () => {
       return ingredients;
    }
 
+   const handleEditConfirm = (product) =>{
+      console.log(product)
+      changeProduct(product);
+   }
+
    return (
       <>
       {
@@ -113,6 +119,14 @@ const Purchase = () => {
                      </button>
                   ))
                }
+               <button
+                  onClick={()=>{openProductEditModal();setModalShow(false)}}
+               >
+                  <div className="modal-description-wrapper">
+                     <h1>PERSONALIZADO</h1>
+                  </div>
+                     <span className='product-price'>R$ --.--</span>
+               </button>
             </div>
          </Modal>
       }
@@ -121,8 +135,11 @@ const Purchase = () => {
          editModalShow &&
          <ProductEditModal
             item={editedProduct}
-            title={'MONTE SEU LANCHE:'}
             setEditModalShow={setEditModalShow}
+            title={'MONTE SEU LANCHE:'}
+            cancelButtonText = {"Cancelar"}
+            confirmButtonText = {"Confirmar"}
+            handleEditConfirm={handleEditConfirm}
          />
       }
       

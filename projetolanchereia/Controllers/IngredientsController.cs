@@ -26,12 +26,12 @@ namespace projetoLancheriaBackend.Controllers
             }
         }
 
-        [HttpGet("admin/{id}")]
-        public async Task<ActionResult<Ingredient>> GetIngredientById(int id)
+        [HttpGet("admin/{ingredientDescription}")]
+        public async Task<ActionResult<Ingredient>> GetIngredientByDescription(string ingredientDescription)
         {
             try
             {
-                var ingredient = await IngredientRepository.GetIngredientByIdAsync(id);
+                var ingredient = await IngredientRepository.GetIngredientByDescriptionAsync(ingredientDescription);
                 return Ok(ingredient);
             }
             catch
@@ -52,15 +52,27 @@ namespace projetoLancheriaBackend.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, "ERRO AO CRIAR NOVO INGREDIENTE");
         }
 
-        [HttpDelete("admin/{id}")]
-        public async Task<ActionResult> DeleteIngredient(int id)
+        [HttpDelete("admin/{ingredientDescription}")]
+        public async Task<ActionResult> DeleteIngredient(string ingredientDescription)
         {
-            if (await IngredientRepository.DeleteIngredientAsync(id))
+            if (await IngredientRepository.DeleteIngredientAsync(ingredientDescription))
             {
                 return Ok();
             }
 
             return StatusCode(StatusCodes.Status500InternalServerError, "ERRO AO DELETAR INGREDIENTE");
+        }
+
+        [HttpPut("admin")]
+        public async Task<ActionResult> UpdateIngredient([FromBody]Ingredient newIngredient)
+        {
+            if(await IngredientRepository.UpdateIngredientAsync(newIngredient))
+            {
+                return Ok();
+            }
+
+            Console.WriteLine("PENIS");
+            return StatusCode(StatusCodes.Status500InternalServerError, "ERRO AO ATUALIZAR INGREDIENTE");
         }
     }
 }

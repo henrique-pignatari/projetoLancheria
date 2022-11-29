@@ -28,7 +28,7 @@ export const calculatePrice = (item) => {
    if(hasAlface && !hasBacon){
       return totalPrice * 0.9;
    }
-
+   
    return totalPrice
 }
 

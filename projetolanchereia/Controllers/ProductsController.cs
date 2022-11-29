@@ -12,23 +12,47 @@ namespace projetoLancheriaBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IAsyncEnumerable<Product>>> GetProducts()
         {
-            //var ovo = new Ingredient("Ovo", 0.50);
-            //var hamburguer = new Ingredient("harmburguer", 3.50);
-
-            //var material1 = new Material(ovo, 1);
-            //var material2 = new Material(hamburguer, 3);
+            //var alface = new Ingredient("Alface", 0.40);
+            //var bacon = new Ingredient("Bacon", 2.00);
+            //var hamburguer = new Ingredient("Hamburguer", 3.00);
+            //var ovo = new Ingredient("Ovo", 0.80);
+            //var queijo = new Ingredient("Queijo", 1.50);
 
             //var materials = new List<Material>();
 
-            //materials.Add(material1);
-            //materials.Add(material2);
+            //materials.Add(new Material(bacon,1));
+            //materials.Add(new Material(hamburguer, 1));
+            //materials.Add(new Material(queijo, 1));
+            //var xBacon = new Product("X-BACON",materials);
 
-            //var product = new Product("X-TESTE", materials);
+            //await ProductRepository.CreateProductAsync(xBacon);
 
-            //if (!await ProductRepository.CreateProductAsync(product))
-            //{
-            //    return StatusCode(StatusCodes.Status500InternalServerError, "PENIS");
-            //}
+            //materials = new List<Material>();
+
+            //materials.Add(new Material(hamburguer, 1));
+            //materials.Add(new Material(queijo, 1));
+            //var xBurguer = new Product("X-BURGUER", materials);
+
+            //await ProductRepository.CreateProductAsync(xBurguer);
+
+            //materials = new List<Material>();
+
+            //materials.Add(new Material(ovo, 1));
+            //materials.Add(new Material(hamburguer, 1));
+            //materials.Add(new Material(queijo, 1));
+            //var xEgg = new Product("X-EGG", materials);
+
+            //await ProductRepository.CreateProductAsync(xEgg);
+
+            //materials = new List<Material>();
+
+            //materials.Add(new Material(ovo, 1));
+            //materials.Add (new Material(bacon, 1));
+            //materials.Add(new Material(hamburguer, 1));
+            //materials.Add(new Material(queijo, 1));
+            //var xEggBacon = new Product("X-EGGBACON", materials);
+
+            //await ProductRepository.CreateProductAsync(xEggBacon);
 
             try
             {

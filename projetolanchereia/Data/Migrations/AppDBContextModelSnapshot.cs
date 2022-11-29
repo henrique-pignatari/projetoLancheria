@@ -44,7 +44,7 @@ namespace projetoLancheriaBackend.Data.Migrations
                     b.Property<int>("IngredientId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Quantity")
@@ -98,15 +98,11 @@ namespace projetoLancheriaBackend.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("projetoLancheriaBackend.Models.Product", "Product")
+                    b.HasOne("projetoLancheriaBackend.Models.Product", null)
                         .WithMany("Materials")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("Ingredient");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("projetoLancheriaBackend.Models.Product", b =>

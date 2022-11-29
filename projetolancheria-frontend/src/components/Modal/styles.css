@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   padding: 25px;
-  min-width: 500px;
+  min-width: 600px;
 }
 
 .modal-close-button{

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useState } from "react";
+import uuid from "react-uuid";
 import { urlConstants } from "../utils/constants";
 
 export const AppContext = createContext();
@@ -14,14 +15,19 @@ export const AppProvider = ({children}) =>{
    const [purchase, setPurchase] = useState({purchaseProducts: []})
 
    //###### PRODUCTS
-   const getProducts = () => {
-      if(products.length < 1){
-         const fetchedProducts = fetchProducts();
-
-         setProducts(fetchedProducts);
-         return fetchedProducts
-      }
-      return products
+   const getProducts = async () => {
+      // if(products.length < 1){
+      //    fetchProducts()
+      //    .then(response =>{
+      //       setProducts(response);
+      //       return response
+      //    })
+      // }
+      // return products
+      const {data} = await axios.get(
+         urlConstants.PRODUCTS_URL
+      )
+      return data;
    }
 
    const fetchProducts = async () => {
@@ -34,9 +40,13 @@ export const AppProvider = ({children}) =>{
    //###### INGREDIENTS
    const getIngredients = () => {
       if(ingredients.length < 1){
-         const fetchedIngredients = fetchIngredients();
-         setIngredients(fetchedIngredients);
-         return fetchedIngredients;
+         fetchIngredients()
+         .then(response =>{
+            setIngredients(response);
+            console.log(response)
+            localStorage.setItem("Ingredients",JSON.stringify(response))
+            return response
+         })
       }
       return ingredients;
    }
@@ -45,12 +55,11 @@ export const AppProvider = ({children}) =>{
       const {data} = await axios.get(
          urlConstants.INGREDIENTS_URL
       )
-      console.log(data)
       return data;
    }
 
-   const setResponsive = matches =>{
-      setResponsiveWidth(matches)
+   const updateIngredientPrice = async(newIngredient) =>{
+      await axios.put(`${urlConstants.INGREDIENTS_URL}/admin`, {...newIngredient})
    }
 
    //###### PURCHASE
@@ -63,7 +72,11 @@ export const AppProvider = ({children}) =>{
 
    const deletePurchase = (id) => {
       let newPurchase = {...purchase}
-      newPurchase.purchaseProducts = newPurchase.purchaseProducts.filter((product)=>(product.id != id));
+      newPurchase.purchaseProducts = 
+      newPurchase.purchaseProducts.filter((product)=>(
+         product.id != id
+      ));
+      
       setPurchase(newPurchase);
       localStorage.setItem("Products",JSON.stringify(newPurchase.purchaseProducts))
    }
@@ -75,15 +88,34 @@ export const AppProvider = ({children}) =>{
       localStorage.setItem("Products",JSON.stringify(newPurchase.purchaseProducts))
    }
 
+   const changeProduct = (product) =>{
+      let newPurchase = {...purchase}
+      newPurchase.purchaseProducts = 
+      newPurchase.purchaseProducts.filter((p)=>(
+         p.id != product.id
+      ));
+
+      newPurchase.purchaseProducts.push(product);
+      setPurchase(newPurchase);
+   }
+
+   ////###### UTILS
+   const setResponsive = matches =>{
+      setResponsiveWidth(matches)
+   }
+
    return(
       <AppContext.Provider value={
          {
             getProducts,
+            ingredients,
             getIngredients,
+            updateIngredientPrice,
             purchase,
             addPurchase,
             setPurchaseProducts,
             deletePurchase,
+            changeProduct,
             responsiveWidth,
             setResponsive
          }}

@@ -14,7 +14,10 @@ const Purchase = ({item, openProductEditModal}) => {
          <div className="item-container"> 
             <div className="item-description-container">
                <h1 
-                  style={!responsiveWidth? {fontSize: 15}: {}} 
+                  style={!responsiveWidth? 
+                     {fontSize: 12}: 
+                     {fontSize: 35}
+                  } 
                   className='item-description'>{item.description}
                </h1>
 
@@ -23,13 +26,19 @@ const Purchase = ({item, openProductEditModal}) => {
                      !responsiveWidth? {
                         display: 'flex', 
                         flexDirection: 'row',
-                        marginRight:5
+                        marginRight:5,
                      }
-                     : {}
+                     : {fontSize: 25}
                   }
                   className='item-price'
                >
-                  <span style={!responsiveWidth? {fontSize: 15}: {}}>R$ </span>
+                  <span style={!responsiveWidth? 
+                     {fontSize: 10}: 
+                     {
+                        fontSize: 15,
+                        marginRight: 10
+                     }}
+                  >R$ </span>
                   {calculatePrice(item).toFixed(2)}
                </span>
             </div>

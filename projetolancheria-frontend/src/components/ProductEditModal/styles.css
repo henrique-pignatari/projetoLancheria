@@ -1,0 +1,17 @@
+.ingredient-container{
+   display: flex;
+   flex-direction: row;
+   margin-top: 15px;
+}
+
+.ingredient-container h1{
+   font-size: 40px;
+   flex: 1;
+}
+
+.ingredient-container input{
+   flex: 1;
+   font-size: 40px;
+   max-width: 150px;
+   text-align: center;
+}

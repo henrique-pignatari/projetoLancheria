@@ -63,7 +63,7 @@ namespace projetoLancheriaBackend.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     IngredientId = table.Column<int>(type: "INTEGER", nullable: false),
                     Quantity = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProductId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ProductId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -78,8 +78,7 @@ namespace projetoLancheriaBackend.Data.Migrations
                         name: "FK_Materials_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
