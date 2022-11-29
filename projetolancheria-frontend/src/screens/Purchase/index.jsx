@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../contexts/app';
-import { calculatePrice } from '../../utils/functions';
-import Modal from '../../components/Modal';
 import uuid from 'react-uuid';
 
-import './styles.css'
+import { calculatePrice } from '../../utils/functions';
+
+import Modal from '../../components/Modal';
 import PurchaseList from '../../components/PurchaseList';
 import ProductEditModal from '../../components/ProductEditModal';
 
+import './styles.css'
+
 const Purchase = () => {
-   const {
+
+   const { //GETS ALL THE NEEDED VARIABLES OF THE CONTEXT
       purchase, 
       addPurchase, 
       setPurchaseProducts, 
@@ -18,26 +21,55 @@ const Purchase = () => {
       changeProduct,
    } = useContext(AppContext);
 
+   //PRODUCTS FETCHED FROM THE SERVER
    const [DbProducts, setDbProducts] = useState([]);
    const [DbIngredients, setDbIngredients] = useState([]);
+
+   //IF MODALS ARE SHWN
    const [modalShow,setModalShow] = useState(false);
    const [editModalShow,setEditModalShow] = useState(false);
+
+   //PRUDUCT THAT WILL BE EDITED
    const [editedProduct, setEditedProduct] = useState({});
 
-   useEffect(()=>{
+   useEffect(()=>{ //GETS THE PURCHASE THAT IS IN THE LOCAL STORAGE
       let storedPurchase = JSON.parse(localStorage.getItem("Products"));
+
       if(!storedPurchase){
          storedPurchase = []
       }
+
       setPurchaseProducts(storedPurchase);
    },[])
 
-   const handleProductAddButton = () =>{
-      if(DbProducts.length < 1){
-         fetchProducts()
+   //#### PRODUCTS
+   const fetchProducts = () => { //FETCHES PRODUCTS
+      const products = getProducts();
+      return products;
+   }
+
+   const calculateTotal = () =>{ //CALCULATES TOTAL PURCHASE PRICE
+      let totalPrice = 0;
+      purchase.purchaseProducts.map((p)=>{
+         totalPrice += calculatePrice(p);
+      });
+
+      return totalPrice;
+   }
+
+   //##### INGREDIENTS   
+   const fetchIngredients = async () =>{ //FETCHES INGREDIENTS 
+      const ingredients = await getIngredients();
+      return ingredients;
+   }
+
+   //##### MODALS
+   //PRODUCT SELECT MODAL
+   const handleProductAddButton = () =>{ //HANDLES WITH INTERECTION WITH PRODUC ADD BUTTON
+      if(DbProducts.length < 1){ //IF THE PRODUCTS THAT CAME FROM THE ARRAY ARE THERE
+         fetchProducts() //FETCHES PRODUCTS
          .then((response)=>{
-            setDbProducts(response);
-            console.log(response)
+            setDbProducts(response); //POPULATES THE DB PRODUCTS WITH SERVER RESPONSE
             setModalShow(true);
          });
          return;
@@ -45,31 +77,17 @@ const Purchase = () => {
       setModalShow(true);
    }
 
-   const fetchProducts = () => {
-      const products = getProducts();
-      return products;
-   }
-
-   const handleProductConfirm = (id) =>{
+   const handleProductConfirm = (id) =>{ //HANDLES WITH PRODUCT PICKING INSIDE MODAL
       const newPurchase = {...DbProducts.find(p => p.id == id)}
       newPurchase.id = uuid();
       addPurchase(newPurchase);
       setModalShow(false);
    }
 
-   const calculateTotal = () =>{
-      let totalPrice = 0;
-      purchase.purchaseProducts.map((p)=>{
-         totalPrice += calculatePrice(p);
-      })
+   const openProductEditModal = (product) =>{ //OPENS MODAL FOR EDITING THE PRODUCTS
+      setEditedProduct(product); //SETS PRODUCT FOR EDITING
 
-      return totalPrice;
-   }
-
-   const openProductEditModal = (product) =>{
-      setEditedProduct(product);
-
-      if(DbIngredients.length < 1){
+      if(DbIngredients.length < 1){ //SAME PROCESS OF THE OTHER MODAL
          fetchIngredients()
          .then((response)=>{
             setDbIngredients(response);
@@ -79,14 +97,8 @@ const Purchase = () => {
       }
       setEditModalShow(true);
    }
-
-   const fetchIngredients = async () =>{
-      const ingredients = await getIngredients();
-      return ingredients;
-   }
-
-   const handleEditConfirm = (product) =>{
-      console.log(product)
+   
+   const handleEditConfirm = (product) =>{ //HANDLER TO CONFIRM THE PRODUCT CHANGES
       changeProduct(product);
    }
 
@@ -102,7 +114,7 @@ const Purchase = () => {
          >
             <div className="products-button-container">
                {
-                  DbProducts.map(product => (
+                  DbProducts.map(product => ( //MAPS THE DB PRODUCTS AND CREATS A BUTTON CONTAINING THE PRODUCTS INFO
                      <button
                         onClick={()=>handleProductConfirm(product.id)}
                         key={product.id}
@@ -115,12 +127,18 @@ const Purchase = () => {
                               ))
                            }
                         </div>
-                           <span className='product-price'>R$ {calculatePrice(product).toFixed(2)}</span>
+
+                        <span className='product-price'>
+                           R$ {calculatePrice(product).toFixed(2)}
+                        </span>
                      </button>
                   ))
                }
                <button
-                  onClick={()=>{openProductEditModal();setModalShow(false)}}
+                  onClick={()=>{
+                     openProductEditModal();
+                     setModalShow(false)
+                  }}
                >
                   <div className="modal-description-wrapper">
                      <h1>PERSONALIZADO</h1>
@@ -145,6 +163,7 @@ const Purchase = () => {
       
          <div className="purchase-container">
             <div className="content">
+
                <div className="frame">
                   <div className="frame-container">   
                      <h1 className='frame-header'>
@@ -161,16 +180,17 @@ const Purchase = () => {
                      }
                      
                      {
-                        purchase.purchaseProducts.length < 1?
-                        <></>
-                        :
+                        (purchase.purchaseProducts.length < 1)&&
                         <h1 className='purchase-total'>TOTAL: R${calculateTotal().toFixed(2)}</h1>
                      }
                   </div>
+
                   <button
                      onClick={handleProductAddButton}
                      className='button-add-product'
-                  >ADICIONAR LANCHE</button>
+                  >
+                     ADICIONAR LANCHE
+                  </button>
                </div>
             </div>
          </div> 

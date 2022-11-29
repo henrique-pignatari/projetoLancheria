@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
-import './styles.css'
-import {CgHome} from "react-icons/cg";
-
-import {ReactComponent as UserSVG} from '../../assets/UserSVG.svg'
 import { AppContext } from '../../contexts/app';
 import { useNavigate } from 'react-router-dom';
 
+import {CgHome} from "react-icons/cg";
+import {ReactComponent as UserSVG} from '../../assets/UserSVG.svg'
+
 import Modal from '../Modal';
+
+import './styles.css'
 
 const Header = () => {
    

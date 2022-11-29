@@ -2,7 +2,7 @@ import React from 'react';
 
 import './styles.css'
 
-const AdminScreen = () => {
+const AdminScreen = () => { //SCREEN FOR ADMINS
    return ( 
       <div>
          <h1>

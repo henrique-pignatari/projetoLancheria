@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;700&display=swap');
+
 :root{
   --main-yellow: #f9be0d;
   --light-brown: #70471c;
@@ -27,4 +29,3 @@ code {
     monospace;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;700&display=swap');

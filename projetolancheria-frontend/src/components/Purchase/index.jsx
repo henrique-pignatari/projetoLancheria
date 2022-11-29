@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
+import { AppContext } from '../../contexts/app';
 
 import { CgPen, CgClose} from "react-icons/cg";
-import { AppContext } from '../../contexts/app';
 import { calculatePrice } from '../../utils/functions';
 
 import './styles.css'

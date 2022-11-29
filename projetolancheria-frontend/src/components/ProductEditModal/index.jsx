@@ -13,24 +13,27 @@ const ProductEditModal = ({
    handleEditConfirm,
    item,
 }) => {
+
+   //TO CREAT THE INGREDIENT LIST
    const {ingredients} = useContext(AppContext);
 
+   //STATE FOR TRACKING THE INPUTS CHANGES 
    const [inputStates, setInputStates] = useState({});
 
-   const handleInputChange = (description, e) =>{
+   const handleInputChange = (description, e) =>{ //UPDATES THE INPUT STATES
       let newInputStates = {...inputStates}
       newInputStates[description] = e.target.value;
       setInputStates(newInputStates);
    }
 
-   const handleModalConfirm = ()=>{
-      let newProduct = {
+   const handleModalConfirm = ()=>{ //HANDLE EDIT CONFIRM
+      let newProduct = { // CREATES A NEW PRODUCT TEMPLATE 
          id: item.id || uuid(),
          description: "Personalizado",
          materials: [],
       };
       
-      ingredients.forEach(ingredient => {
+      ingredients.forEach(ingredient => { //ITERATES FOR EACH INGRIDIENT AND ADDS IT TO THE OBJECT
          if(inputStates[ingredient.description]>0){
             let material ={
                ingredient:{
@@ -39,6 +42,7 @@ const ProductEditModal = ({
                },
                quantity: parseInt(inputStates[ingredient.description])
             }
+            
             newProduct.materials.push(material);
          }         
       });

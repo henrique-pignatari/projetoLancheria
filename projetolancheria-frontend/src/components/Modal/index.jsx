@@ -16,12 +16,16 @@ const Modal = (
       <div className='modal-background'>
          <div className="modal-container">
             <button
-            className='modal-close-button'
+               className='modal-close-button'
                onClick={()=>{setModalShow(false)}}
-            >X</button>
+            >
+               X
+            </button>
+
             <div className="title">
                <h1>{title}</h1>
             </div>
+            
             {children}
             
             <div className="action-buttons">

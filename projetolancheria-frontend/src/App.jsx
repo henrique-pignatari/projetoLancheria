@@ -4,11 +4,11 @@ import { AppProvider } from './contexts/app';
 
 import './App.css';
 
-import Footer from './components/Footer';
 import Header from './components/Header';
 import Home from './screens/Home';
 import Purchase from './screens/Purchase';
 import AdminScreen from './screens/AdminScreen';
+import Footer from './components/Footer';
 
 export default function App() {  
   return (
