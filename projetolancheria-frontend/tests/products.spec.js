@@ -1,6 +1,6 @@
 import axios from 'axios'
 import calculatePriceTest from './calculatePriceTest';
-import Products from './producTest'
+import Products from './ProducTest'
 
 jest.mock('axios');
 
