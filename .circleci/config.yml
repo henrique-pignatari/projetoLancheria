@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   build:
-    working_directory: ~/ProjetoLancheria/projetolancheria-frontend
+    working_directory: ~/projetolancheria-frontend
     docker:
       - image: cimg/node:14.20.0
     steps:
