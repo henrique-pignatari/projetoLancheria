@@ -19,6 +19,6 @@ jobs:
       - run:
           name: run space test
           path: ~/ProjetoLancheria/projetolancheria-frontend/tests
-          command: npm test
+          command: npm run test
       - store_artifacts: 
           path: ~/repo/space
