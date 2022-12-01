@@ -5,8 +5,8 @@ jobs:
     docker:
       - image: cimg/node:14.20.0
     steps:
-      - checkout
-        path: ~/projetolancheria-frontend
+      - checkout:
+          path: ~/projetolancheria-frontend
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
