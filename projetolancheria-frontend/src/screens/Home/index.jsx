@@ -6,6 +6,7 @@ import './styles.css'
 
 import HamburguerExplode from '../../assets/hamburguer-explode.png'
 import HamburgureNormal from '../../assets/hamburguer.png'
+import Frame from '../../components/Frame';
 
 const Home = () => {
    const {responsiveWidth,setResponsive} = useContext(AppContext);
@@ -22,55 +23,46 @@ const Home = () => {
    }
 
    return (
-      <>
-         <div className='home-container'>
+      <div className='home-container'>
 
-            <div className="content">
+         <div className="content">
 
-               <div className='hamburguer-container'>
-                  <img src={HamburguerExplode}className='hamburguer' style={!responsiveWidth? {width:300,height:400, alignSelf: 'center'} : {}} />
+            <div className='hamburguer-container'>
+               <img src={HamburguerExplode}className='hamburguer' style={!responsiveWidth? {width:300,height:400, alignSelf: 'center'} : {}} />
 
-                  {
-                     responsiveWidth &&
+               {
+                  responsiveWidth &&
 
-                     <img src={HamburgureNormal}className='hamburguer'/>
-                  }
-
-               </div>
-
-               <div className="frame">
-                  <div className="frame-container">   
-
-                     <h1 className='frame-header'>
-                        BEM VINDO À LANCHERIA!
-                     </h1>
-
-                     <div className="frame-text">
-                        <p>Servimos os melhores lanches da cidade!<br/></p>     
-                        <p>Venha experimentar você também!<br/></p>         
-                        <p>Conheça nosso cardápio fazendo seu pedido!<br/></p>
-                        <p>Aproveite nossas imperdiveis promoções!<br/></p>
-                        <p>Monte você mesmo seu lanche!<br/></p>
-                     </div>
-
-                  </div>
-               </div>
+                  <img src={HamburgureNormal}className='hamburguer'/>
+               }
 
             </div>
 
-            <button 
-               style={
-                  !responsiveWidth? 
-                  {fontSize: 15, marginBottom: 90} :
-                  {fontSize: 25}
-               } 
-               className='order-button'
-               onClick={handlePurchaseClick}
+            <Frame
+               headerText={'BEM VINDO À LANCHERIA!'}
             >
-               FAÇA SEU PEDIDO AGORA MESMO
-            </button>
+               <div className="frame-text">
+                  <p>Servimos os melhores lanches da cidade!<br/></p>     
+                  <p>Venha experimentar você também!<br/></p>         
+                  <p>Conheça nosso cardápio fazendo seu pedido!<br/></p>
+                  <p>Aproveite nossas imperdiveis promoções!<br/></p>
+                  <p>Monte você mesmo seu lanche!<br/></p>
+               </div>
+            </Frame>
          </div>
-      </>
+
+         <button 
+            style={
+               !responsiveWidth? 
+               {fontSize: 15, marginBottom: 90} :
+               {fontSize: 25}
+            } 
+            className='order-button'
+            onClick={handlePurchaseClick}
+         >
+            FAÇA SEU PEDIDO AGORA MESMO
+         </button>
+      </div>
    );
 }
  

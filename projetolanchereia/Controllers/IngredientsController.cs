@@ -41,7 +41,7 @@ namespace projetoLancheriaBackend.Controllers
             }
         }
 
-        [HttpPost("admin/")]
+        [HttpPost("admin")]
         public async Task<ActionResult> PostIngredient([FromBody] Ingredient ingredient)
         {
             if (await IngredientRepository.CreateIngredientAsync(ingredient))
@@ -71,7 +71,6 @@ namespace projetoLancheriaBackend.Controllers
                 return Ok();
             }
 
-            Console.WriteLine("PENIS");
             return StatusCode(StatusCodes.Status500InternalServerError, "ERRO AO ATUALIZAR INGREDIENTE");
         }
     }

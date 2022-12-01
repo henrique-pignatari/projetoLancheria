@@ -1,0 +1,27 @@
+.frame{
+   display: flex;
+   flex: 1;
+   flex-direction: column;
+   position: relative;
+   justify-content: center;
+   margin: 80px;
+   padding: 40px;
+   background-color: rgba(20, 20, 20, 0.6);
+   border: 3px solid var(--main-yellow);
+   border-radius: 20px;
+}
+
+.frame-container{
+   display: flex;
+   flex-direction: column;
+   align-self: center;
+}
+
+.frame-header{
+   text-align: center;
+   font-family: 'Abhaya Libre', serif;
+   font-weight: bold;
+   font-size: 55px;
+   color: var(--main-yellow);
+   margin-bottom: 40px;
+}

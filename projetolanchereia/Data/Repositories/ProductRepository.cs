@@ -7,6 +7,7 @@ namespace projetoLancheriaBackend.Data.Repositories
     {
         internal async static Task<List<Product>> GetProductsAsync() 
         {
+            Console.WriteLine("ENTRANDO");
             using (var db = new AppDBContext())
             {
                 return await db.Products
@@ -58,7 +59,6 @@ namespace projetoLancheriaBackend.Data.Repositories
                 }
                 catch (Exception e)
                 {
-
                     return false;
                 }
             }

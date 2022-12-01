@@ -24,23 +24,27 @@ export const AppProvider = ({children}) =>{ //PROVIDER COMPONENT A SINGLE COMPON
       return data;
    }
 
+   const updateProduct = async (newProduct) => {
+      await axios.put(
+         `${urlConstants.PRODUCTS_URL}/admin`, 
+         {...newProduct}
+      )
+   }
+
    //###### INGREDIENTS
-   const getIngredients = () => { //HANDLES WITH SPECIFIC ASYNCRONOUS TASKS REGARDING INGREDIENT FETCH
+   const getIngredients = async () => { //HANDLES WITH SPECIFIC ASYNCRONOUS TASKS REGARDING INGREDIENT FETCH
       if(ingredients.length < 1){
-         fetchIngredients()
-         .then(response =>{
-            setIngredients(response);
-            return response
-         })
+         const {data} = await fetchIngredients();
+         setIngredients(data);
+         return data
       }
       return ingredients;
    }
 
    const fetchIngredients = async () =>{ //DOES A HTTP GET TO THE INGREDIENTS ENDPOINT
-      const {data} = await axios.get(
+      return await axios.get(
          urlConstants.INGREDIENTS_URL
       )
-      return data;
    }
 
    const updateIngredientPrice = async(newIngredient) =>{ //DOES A HTTP PUT TO THE INGREDIENTS ENDPOINT
@@ -56,7 +60,7 @@ export const AppProvider = ({children}) =>{ //PROVIDER COMPONENT A SINGLE COMPON
       newPurchase.purchaseProducts.push(product);
 
       setPurchase(newPurchase);
-      localStorage.setItem("Products",JSON.stringify(newPurchase.purchaseProducts))
+      localStorage.setItem("Products",JSON.stringify(newPurchase.purchaseProducts));
    }
 
    const deletePurchase = (id) => { //DELETES A PRODUCT TO THE PURCHASE ARRAY
@@ -90,6 +94,7 @@ export const AppProvider = ({children}) =>{ //PROVIDER COMPONENT A SINGLE COMPON
 
       newPurchase.purchaseProducts.push(product);
       setPurchase(newPurchase);
+      localStorage.setItem("Products",JSON.stringify(newPurchase.purchaseProducts))
    }
 
    ////###### UTILS
@@ -103,8 +108,10 @@ export const AppProvider = ({children}) =>{ //PROVIDER COMPONENT A SINGLE COMPON
             //ALL THE VARIABLES AND FUCTIONS PROVIDED
             //PRODUCTS
             getProducts,
+            updateProduct,
             //INGREDIENTS
             ingredients,
+            setIngredients,
             getIngredients,
             updateIngredientPrice,
             //PURCHASE

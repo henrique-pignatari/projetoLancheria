@@ -3,10 +3,17 @@ import { AppContext } from '../../contexts/app';
 
 import { CgPen, CgClose} from "react-icons/cg";
 import { calculatePrice } from '../../utils/functions';
+import OpenIngredientEditModalButton from '../OpenIngredientEditModalButton';
 
 import './styles.css'
 
-const Purchase = ({item, openProductEditModal}) => {
+const Purchase = ({
+   item,
+   DbIngredients,
+   setDbIngredients,
+   setEditModalShow,
+   setEditedProduct,
+}) => {
    const {deletePurchase,responsiveWidth} = useContext(AppContext);
    
    return (  
@@ -38,17 +45,30 @@ const Purchase = ({item, openProductEditModal}) => {
                         fontSize: 15,
                         marginRight: 10
                      }}
-                  >R$ </span>
-                  {calculatePrice(item).toFixed(2)}
+                  >
+                     R$
+                  </span>
+                  <span>
+                     {calculatePrice(item).toFixed(2)}
+                  </span>
                </span>
             </div>
+
             <div className="item-options">
                <button
                   onClick={()=>{deletePurchase(item.id)}}
-               ><CgClose size={28}/></button>
-               <button
-                  onClick={()=>{openProductEditModal(item)}}
-               ><CgPen size={20}/></button>
+               >
+                  <CgClose size={28}/>
+               </button>
+               <OpenIngredientEditModalButton
+                  DbIngredients={DbIngredients}
+                  setDbIngredients={setDbIngredients}
+                  setEditModalShow={setEditModalShow}
+               >
+                  <CgPen 
+                  onClick={()=>setEditedProduct(item)}
+                  size={20}/>
+               </OpenIngredientEditModalButton>
             </div>
          </div>
          <div className="separator"/>

@@ -6,12 +6,12 @@ import Modal from '../Modal';
 import './styles.css'
 
 const ProductEditModal = ({
-   setEditModalShow,
    title,
+   item,
+   setEditModalShow,
    cancelButtonText,
    confirmButtonText,
    handleEditConfirm,
-   item,
 }) => {
 
    //TO CREAT THE INGREDIENT LIST
@@ -28,7 +28,7 @@ const ProductEditModal = ({
 
    const handleModalConfirm = ()=>{ //HANDLE EDIT CONFIRM
       let newProduct = { // CREATES A NEW PRODUCT TEMPLATE 
-         id: item.id || uuid(),
+         id: item? item.id : uuid(),
          description: "Personalizado",
          materials: [],
       };
@@ -40,14 +40,16 @@ const ProductEditModal = ({
                   description: ingredient.description,
                   price: ingredient.price,
                },
-               quantity: parseInt(inputStates[ingredient.description])
+               quantity: parseFloat(inputStates[ingredient.description])
             }
             
             newProduct.materials.push(material);
          }         
       });
 
-      handleEditConfirm(newProduct);
+      if(newProduct.materials.length > 0){
+         handleEditConfirm(newProduct);
+      }
    }
 
    return ( 
@@ -60,8 +62,10 @@ const ProductEditModal = ({
       >   
       {
          ingredients.map(ingredient=>(
-            <div className="ingredient-container">
-               <h1 key={ingredient.id}>
+            <div  key={ingredient.id}
+               className="ingredient-container"
+            >
+               <h1>
                {ingredient.description}
                </h1>
                <input

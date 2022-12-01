@@ -1,0 +1,28 @@
+.admin-container{
+   min-height: 100%;
+   align-items: center;
+   background-color: var(--dark-brown);
+}
+
+.frame-wraper{
+   display: flex;
+   flex-direction: column;
+}
+
+.frame{
+   align-items: center;
+}
+
+.frame .frame-header{
+   margin: 0;
+}
+
+.frame-wraper button{
+   border: none;
+   background-color: transparent;
+}
+
+.admin-frame:hover{
+   cursor: pointer; 
+   opacity: 0.5;
+}

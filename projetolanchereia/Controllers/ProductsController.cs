@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using projetoLancheriaBackend.Data.Repositories;
 using projetoLancheriaBackend.Models;
@@ -40,7 +41,7 @@ namespace projetoLancheriaBackend.Controllers
             }
         }
 
-        [HttpPost("admin/")]
+        [HttpPost("admin")]
         public async Task<ActionResult> PostProduct([FromBody] Product product)
         {
             if (await ProductRepository.CreateProductAsync(product))
@@ -60,6 +61,17 @@ namespace projetoLancheriaBackend.Controllers
             }
 
             return StatusCode(StatusCodes.Status500InternalServerError, "ERRO AO DELETAR PRODUTO");
+        }
+
+        [HttpPut("admin")]
+        public async Task<ActionResult> UpdateProduct([FromBody] Product newProduct)
+        {
+            if (await ProductRepository.UpdateProductAsync(newProduct))
+            {
+                return Ok();
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError, "ERRO AO ATUALIZAR PRODUTO");
         }
     }
 }
