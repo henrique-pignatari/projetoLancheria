@@ -9,14 +9,16 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
-          name: install dependencies
+          name: install dependencies/
+          path: ./projetolancheria-frontend/
           command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
-            - ./node_modules
+            - ./projetolancheria-frontend/node_modules
       - run:
           name: run tests
+          path: ./projetolancheria-frontend/
           command: npm test
       - store_artifacts:
-          path: ~/repo/test
+          path: ~/repo/circlecitest
