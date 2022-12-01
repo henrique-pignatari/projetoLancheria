@@ -1,11 +1,12 @@
 version: 2.1
 jobs:
   build:
-    working_directory: ./ProjetoLancheria/projetolancheria-frontend
+    working_directory: ~/ProjetoLancheria/projetolancheria-frontend
     docker:
       - image: cimg/node:14.20.0
     steps:
       - checkout
+        path: ~/projetolancheria-frontend
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
